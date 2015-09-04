@@ -11,13 +11,6 @@ var isValid = function(obj) {
   return false;
 }
 
-var isCookieAvailable = function(cookie) {
-  if(!isValid(cookie) || cookie == {}) {
-    return false;
-  }
-  return true;
-};
-
 var isNameAvailable = function(name) {
   if(!isValid(name) || name == '') {
     return false;
@@ -34,7 +27,7 @@ router.get('/hello', function(req, res, next) {
   var greeting = 'hello ' + req.query.name + '!';
   var cookies = '';
   console.log(req.cookies);
-  if(isCookieAvailable(req.cookies) && _.size(req.cookies) > 0) {
+  if(!_.isEmpty(req.cookies) && _.size(req.cookies) > 0) {
     cookies = ' I can see your cookies are: ' + JSON.stringify(req.cookies);
   }
   res.status(200)
