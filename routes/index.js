@@ -2,6 +2,7 @@
 var express = require('express');
 var router = express.Router();
 var _ = require('lodash');
+var querystring = require('querystring')
 
 /* GET home page. */
 var isValid = function(obj) {
@@ -26,10 +27,14 @@ router.get('/hello', function(req, res, next) {
 
   var greeting = 'hello ' + req.query.name + '!';
   var cookies = '';
+  var cookie_text = ' I can see your cookies are: ';
   console.log(req.cookies);
-  if(!_.isEmpty(req.cookies) && _.size(req.cookies) > 0) {
-    cookies = ' I can see your cookies are: ' + JSON.stringify(req.cookies);
+  if((!_.isEmpty(req.cookies) && _.size(req.cookies) > 0)) {
+    cookies = cookie_text + JSON.stringify(req.cookies);
+  } else if (isNameAvailable(req.query.cookies)){
+    cookies = cookie_text + querystring.parse(req.query.cookies, ';', ':');
   }
+
   res.status(200)
     .send(greeting + cookies);
 });
