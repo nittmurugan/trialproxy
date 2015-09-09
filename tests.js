@@ -86,7 +86,7 @@ describe('proxy endpoint tests', function(){
       .get(endpoint)
       .send({'num1': 10, 'num2': 20})
       .expect('Content-Type', /text/)
-      .expect(302, 'Moved Temporarily. Redirecting to http://localhost:8000/hello?name=susan')
+      .expect(302, 'Moved Temporarily. Redirecting to http://localhost:8000/hello?name=susan&cookies=sum%253A')
       .end(function(err, res) {
         if(err) return done(err);
         done();
@@ -102,7 +102,7 @@ describe('proxy endpoint tests', function(){
         'num2': 30
       })
       .expect('Content-Type', /text/)
-      .expect(302, 'Moved Temporarily. Redirecting to http://localhost:8000/hello?name=susan')
+      .expect(302, 'Moved Temporarily. Redirecting to http://localhost:8000/hello?name=susan&cookies=sum%253A')
       .end(function(err, res) {
         if (err) return done(err);
         done();
